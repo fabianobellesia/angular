@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { PageDataService } from 'src/app/services/page-data.service';
 @Component({
@@ -11,6 +11,7 @@ import { PageDataService } from 'src/app/services/page-data.service';
     isMenuOpen = false;
 
     tituloHeader = '';
+    @Output() enviaFiltro = new EventEmitter<string>();
 
     constructor(private router: Router, private pageService: PageDataService){
       this.pageService.titulo.subscribe(
@@ -29,6 +30,11 @@ import { PageDataService } from 'src/app/services/page-data.service';
       console.log("deletou");
       localStorage.removeItem('TOKEN');
       this.router.navigate(['login']);
+    }
+
+    handleFiltro(inputValue){
+      // console.log(inputValue);
+      this.enviaFiltro.emit(inputValue);
     }
 
   }

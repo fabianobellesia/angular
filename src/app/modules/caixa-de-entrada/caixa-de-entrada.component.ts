@@ -27,7 +27,7 @@ export class CaixaDeEntradaComponent implements OnInit {
      )
 
   }
-
+  textoDigitadoDoFiltro = '';
   email = {
     destinatario: '',
     assunto: '',
@@ -38,7 +38,7 @@ export class CaixaDeEntradaComponent implements OnInit {
 
   mensagemErro = "";
 
-  listaEmails = [];
+  listaEmails: EmailOutputDTO[] = [];
 
   get isEmailFormOpen() {
     return this._isEmailFormOpen;
@@ -93,6 +93,22 @@ export class CaixaDeEntradaComponent implements OnInit {
       }
 
     );
+
+  
+  }
+
+  listaFiltrada(){  
+    return this.listaEmails.filter( 
+      (email) => {
+        if(email.assunto.toLowerCase().includes(this.textoDigitadoDoFiltro.toLocaleLowerCase())
+            || email.conteudo.toLocaleLowerCase().includes(this.textoDigitadoDoFiltro.toLocaleLowerCase())
+            || email.destinatario.toLocaleLowerCase().includes(this.textoDigitadoDoFiltro.toLocaleLowerCase())
+            || email.remetente.toLocaleLowerCase().includes(this.textoDigitadoDoFiltro.toLocaleLowerCase())
+           ){
+          return true;
+        }
+      }
+      )
   }
 
   // listarEmails(){
